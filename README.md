@@ -35,7 +35,7 @@ container during the build process.
 
 ## Dependencies for this pipeline
 
-There is a Snakemake environment defined in `workflow/envs/run_*.yml`. Since this pipeline is assumed to be
+There is a Snakemake environment defined in `workflow/envs/run_*.yaml`. Since this pipeline is assumed to be
 executed on a machine where the user is root (the most straightforward way to build containers),
 and retrieving data from cloud hosters usually requires some login or client configuration,
 this repo cannot provide an out-of-the-box solution for all possible download sources.
