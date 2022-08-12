@@ -65,7 +65,7 @@ def create_refcon_base_map():
 
 def _find_base_def_file(base_name):
 
-    repo_path = pl.Path(workflow.basedir).absolute()
+    repo_path = pl.Path(workflow.basedir).parent.resolve(strict=True)
     def_files_folder = repo_path / pl.Path('def_files') / pl.Path('base')
     if not def_files_folder.is_dir():
         raise ValueError(f'Expected to find base def files at path {def_files_folder}, but that does not exist')
