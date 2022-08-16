@@ -17,7 +17,13 @@ def _get_container_metadata(refcon_name=None):
     else:
         refcon_md = [(key.split('_')[-1], metadata) for key, metadata in config.items() if key.startswith('metadata_')]
     if not refcon_md:
-        raise ValueError('No "metadata_" keys found in config. Did you forget to load a reference container config?')
+        base_image_name = [(key.split('_')[-1], metadata) for key, metadata in config.items() if key.startswith('metadata_')]
+        base_image_name = [(base_image, metadata) for base_image, metadata in base_image_name if base_image in select_names]
+        base_container_path = pl.Path(f'container/{base_image_name}.sif')
+        if not base_container_path.is_file():
+            raise ValueError('No base container found. Please follow instructions above to create base container!')
+        else:
+            raise ValueError('No "metadata_" keys found in config. Did you forget to load a reference container config?')
     for rc_name, rc_md in refcon_md:
         if 'name' not in rc_md or rc_name != rc_md['name']:
             raise ValueError(f'Reference container name missing or mismatch: {rc_name} / {rc_md}')
@@ -380,6 +386,10 @@ def build_filename_constraints(which):
 def select_container_readme(wildcards):
 
     _, refcon_md = _get_container_metadata(wildcards.rc_name_version)[0]
+    if 'base' in {wildcards.rc_name_version}:
+        base_container_path = pl.Path(f'container/{wildcards.rc_name_version}.sif')
+        if not base_container_path.is_file():
+            raise ValueError('No base container found. Please follow instructions above to create base container')
     if 'readme' in refcon_md:
         readme_path = f'container/{wildcards.rc_name_version}/README.txt'
     else:
