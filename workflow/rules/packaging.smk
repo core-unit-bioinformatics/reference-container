@@ -103,6 +103,7 @@ rule notify_user:
         info_msg += f'$ sudo singularity build {rc_name}.sif {rc_name}/build.def\n\n'
         info_msg += '(Restart the pipeline afterwards to check the container payload)\n\n'
         sys.stderr.write(info_msg)
+        raise ValueError('Container is missing. Please follow the instructions above!!')
 
 
 rule verify_container_content:
