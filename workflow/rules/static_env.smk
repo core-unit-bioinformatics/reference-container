@@ -30,6 +30,5 @@ class FileIdentifiers(enum.Enum):
     alias2 = 3
 
 
-
 # case is ignored for matching
-FILE_NAME_CHARS = '[a-z0-9_\.\-]+$'
+FILE_NAME_CHARS = "[a-z0-9_\.\-]+$"

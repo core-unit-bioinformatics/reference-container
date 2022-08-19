@@ -4,8 +4,14 @@
 
 REFCON_BASE_MAP = create_refcon_base_map()
 
-SOURCE_PATH_MAP, TRANSFORM_FILE_PAIRS, PAYLOAD_PATH_MAP, PAYLOAD_MD5_PATH_MAP, FILE_RECORDS_MAP = cache_container_payload()
+(
+    SOURCE_PATH_MAP,
+    TRANSFORM_FILE_PAIRS,
+    PAYLOAD_PATH_MAP,
+    PAYLOAD_MD5_PATH_MAP,
+    FILE_RECORDS_MAP,
+) = cache_container_payload()
 
-FILE_LOAD_CONSTRAINTS = build_filename_constraints('loading')
+FILE_LOAD_CONSTRAINTS = build_filename_constraints("loading")
 
-FILE_TRANSFORM_CONSTRAINTS = build_filename_constraints('transforming')
+FILE_TRANSFORM_CONSTRAINTS = build_filename_constraints("transforming")

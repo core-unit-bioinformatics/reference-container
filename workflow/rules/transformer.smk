@@ -1,12 +1,19 @@
-
 class DataTransformer(object):
-    __slots__ = 'provider', 'prefix', 'transformation', 'file_spec_handler', 'target_file'
+    __slots__ = (
+        "provider",
+        "prefix",
+        "transformation",
+        "file_spec_handler",
+        "target_file",
+    )
 
     def __init__(self, provider, prefix, transformation, target_file):
         if not isinstance(provider, DataProviders):
-            raise ValueError(f'Expected valid data provider enum, not: {type(provider)}')
+            raise ValueError(
+                f"Expected valid data provider enum, not: {type(provider)}"
+            )
         if not isinstance(prefix, pathlib.Path):
-            raise ValueError(f'Expected pathlib.Path, not: {type(prefix)}')
+            raise ValueError(f"Expected pathlib.Path, not: {type(prefix)}")
         self.provider = provider
         self.prefix = prefix
         if not isinstance(transform_spec, dict):
@@ -14,6 +21,3 @@ class DataTransformer(object):
             return None
         transformation_type, transformation_spec = list()
         self.transformation = DataTransformations[transformation]
-
-
-
