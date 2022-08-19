@@ -1,4 +1,3 @@
-
 include: "rules/static_env.smk"
 include: "rules/functions.smk"
 include: "rules/dynamic_env.smk"
@@ -11,4 +10,4 @@ include: "rules/packaging.smk"
 rule build_reference_container:
     input:
         collect_base_images,
-        collect_reference_container_build_targets
+        collect_reference_container_build_targets,
