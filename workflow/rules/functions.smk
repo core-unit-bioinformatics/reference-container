@@ -30,7 +30,9 @@ def _get_container_metadata(refcon_name=None):
         ]
     if not refcon_md:
         raise ValueError(
-            'No "metadata_" keys found in config. Did you forget to load a reference container config?'
+            "\nPotential user error:\n"
+            "No 'metadata_' keys found in config. Did you forget to load a reference container config?\n"
+            "You must specify the container configuration files via Snakemake's '--configfiles' option.\n\n"
         )
     for rc_name, rc_md in refcon_md:
         if "name" not in rc_md or rc_name != rc_md["name"]:
