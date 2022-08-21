@@ -1,5 +1,6 @@
 import sys as sys
 import re as re
+import io
 import pathlib as pl
 import collections as col
 import shutil as sh
@@ -121,36 +122,49 @@ def collect_base_images(wildcards):
     # line must use constant from smk template
     workflow_dir = pl.Path().cwd()
 
+    total_configs = 0
+    missing_base_containers = 0
+    missing_base_messages = io.StringIO()
+
     refcon_md = _get_container_metadata()
     for key, rc_md in refcon_md:
+        total_configs += 1
         base_image = rc_md.get("base_image", None)
         if base_image is None:
+            # note: this should already be caught in
+            # "create_refcon_base_map"
             raise ValueError(
                 f'Key "base_image" is missing from reference container metadata: {rc_md}'
             )
         base_container_path = pl.Path(f"container/{base_image}.sif")
         if not base_container_path.is_file():
+            missing_base_containers += 1
             # to make the manual builds easier, copy required
             # base image def files to container directory
             base_def_file = _find_base_def_file(base_image)
             target_def_file = base_container_path.with_suffix(".def")
             pl.Path("container/").mkdir(parents=True, exist_ok=True)
             sh.copy(base_def_file, target_def_file)
-            info_msg = f"\nACTION REQUIRED --- missing base container detected: {base_image}.sif\n"
-            info_msg += (
+            err_msg = f"\nUSER ACTION REQUIRED --- missing base container detected: {base_image}.sif\n"
+            err_msg += f"Base container needed to build reference container: {key}\n"
+            err_msg += (
                 f'Please run the following build command in the "container" folder:\n'
             )
-            info_msg += f"$ cd {workflow_dir}/container\n"
-            info_msg += (
-                f"$ sudo singularity build {base_image}.sif {base_image}.def\n\n"
-            )
-            info_msg += "(Restart the pipeline afterwards to continue building the reference container)\n\n"
-            sys.stderr.write(info_msg)
-            raise ValueError(
-                "Container is missing. Please follow the instructions above!!"
-            )
+            err_msg += f"$ cd {workflow_dir}/container\n"
+            err_msg += f"$ sudo singularity build {base_image}.sif {base_image}.def\n\n"
+            err_msg += "(Restart the pipeline afterwards to continue building the reference container)\n\n"
+            _ = missing_base_messages.write(err_msg)
 
         required_base_containers.append(base_container_path)
+
+    if missing_base_containers > 0:
+        sys.stderr.write(missing_base_messages.getvalue())
+        err_msg = "\nThe follwing issues were detected in the loaded reference container configs:\n"
+        err_msg += " - missing base container images (*.sif files): "
+        err_msg += f"{missing_base_containers} out of {total_configs} configs\n"
+        err_msg += " (see messages above: USER ACTION REQUIRED)\n"
+        raise ValueError(err_msg)
+
     return sorted(required_base_containers)
 
 
