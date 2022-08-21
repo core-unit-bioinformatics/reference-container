@@ -91,7 +91,9 @@ def create_refcon_base_map():
 
 def _find_base_def_file(base_name):
 
-    repo_path = pl.Path(workflow.basedir).parent.resolve(strict=True)   # TODO: this line needs to be changed in the Snakemake template and use a 'constant' from the template  
+    # TODO
+    # this line must use a 'constant' from the smk template
+    repo_path = pl.Path(workflow.basedir).parent.resolve(strict=True)
     def_files_folder = repo_path / pl.Path("def_files") / pl.Path("base")
     if not def_files_folder.is_dir():
         raise ValueError(
@@ -115,6 +117,8 @@ def collect_base_images(wildcards):
     """
     required_base_containers = []
 
+    # TODO
+    # line must use constant from smk template
     workflow_dir = pl.Path().cwd()
 
     refcon_md = _get_container_metadata()
@@ -511,8 +515,13 @@ def select_container_readme(wildcards):
 def _collect_git_labels():
     import subprocess as sp
 
-    wd = pl.Path(workflow.basedir).absolute()  # should always be the repo folder
+    # TODO
+    # this needs to be replaced using a constant from smk template
+    wd = pl.Path(workflow.basedir).absolute()
 
+    # TODO
+    # primary push target is no longer "origin" by convention,
+    # but "github"
     collect_infos = [
         "rev-parse --short HEAD",
         "rev-parse --abbrev-ref HEAD",
