@@ -1,0 +1,89 @@
+
+metadata_ncbi-t2t-chm13hg002:
+  name: ncbi-t2t-chm13hg002
+  version: 1
+  author: Peter.Ebert
+  contact: peter.ebert@hhu.de
+  base_image: base_v0
+  labels:
+  - "homo sapiens"
+  - "chm13"
+  - "reference genome"
+  - "T2Tv2.0"
+  - "chm13_1-22XMT"
+  - "hg002_XY"
+  - "no chr prefix"
+  - "GCA_009914755.4"
+  - "GCA_020881995.2_ASM2088199v2"
+  sources:
+  -
+    provider: ftp
+    prefix: ftp.ncbi.nlm.nih.gov/genomes/all/GCA/009/914/755/GCA_009914755.4_T2T-CHM13v2.0
+    files:
+    -
+      - GCA_009914755.4_T2T-CHM13v2.0.fasta
+      - genome.fasta
+      - t2tv20_chm13.fasta
+      - decompress: GCA_009914755.4_T2T-CHM13v2.0_genomic.fna.gz
+    -
+      - GCA_009914755.4_T2T-CHM13v2.0.dict
+      - genome.dict
+      - t2tv20_chm13.dict
+      - derive:
+          input: GCA_009914755.4_T2T-CHM13v2.0.fasta
+          singularity: https://depot.galaxyproject.org/singularity/samtools:1.6--hb116620_7
+          shell: samtools dict {input} > {output}
+    -
+      - GCA_009914755.4_T2T-CHM13v2.0.fasta.fai
+      - genome.fasta.fai
+      - t2tv20_chm13.fasta.fai
+      - derive:
+          input: GCA_009914755.4_T2T-CHM13v2.0.fasta
+          singularity: https://depot.galaxyproject.org/singularity/samtools:1.6--hb116620_7
+          shell: samtools faidx {input}
+    -
+      - GCA_009914755.4_T2T-CHM13v2.0.assembly-report.txt
+      - t2tv20_chm13.assembly-report.txt
+      - rename: GCA_009914755.4_T2T-CHM13v2.0_assembly_report.txt
+    -
+      - GCA_009914755.4_T2T-CHM13v2.0.assembly-stats.txt
+      - t2tv20_chm13.assembly-stats.txt
+      - rename: GCA_009914755.4_T2T-CHM13v2.0_assembly_stats.txt
+    -
+      - GCA_009914755.4_T2T-CHM13v2.0.primary-chr2acc.tsv
+      - t2tv20_chm13.primary-chr2acc.tsv
+      - rename: GCA_009914755.4_T2T-CHM13v2.0_assembly_structure/Primary_Assembly/assembled_chromosomes/chr2acc
+    -
+      - GCA_009914755.4_T2T-CHM13v2.0.mito-chr2acc.tsv
+      - t2tv20_chm13.mito-chr2acc.tsv
+      - rename: GCA_009914755.4_T2T-CHM13v2.0_assembly_structure/non-nuclear/assembled_chromosomes/chr2acc
+  -
+    provider: ftp
+    prefix: ftp.ncbi.nlm.nih.gov/genomes/all/GCA/020/881/995/GCA_020881995.2_ASM2088199v2
+    files:
+    -
+      - GCA_020881995.2_ASM2088199v2.fasta
+      - t2t_hg002_XY_v2.fasta
+      - decompress: GCA_020881995.2_ASM2088199v2_genomic.fna.gz
+    -
+      - GCA_020881995.2_ASM2088199v2.assembly-report.txt
+      - t2t_hg002v2_XY_v2.assembly-report.txt
+      - rename: GCA_020881995.2_ASM2088199v2_assembly_report.txt
+    -
+      - GCA_020881995.2_ASM2088199v2.assembly-stats.txt
+      - t2t_hg002v2_XY_v2.assembly-stats.txt
+      - rename: GCA_020881995.2_ASM2088199v2_assembly_stats.txt
+  #-
+  #  provider: local
+  #  files:
+  #  -
+  #    - CP086568.2.fasta
+  #    - t2t_hg002_X_v2.fasta
+  #  -
+  #    - CP086569.2.fasta
+  #    - t2t_hg002_Y_v2.fasta
+  #readme: >-
+  #  Separate FASTA files for HG002/XY v2 had to be downloaded manually
+  #  from the NCBI/Genbank sequence viewer because the sequence records
+  #  did not yet include a correct link to the FTP location (no v2
+  #  of the merged assembly record as for v1)
