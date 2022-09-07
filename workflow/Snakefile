@@ -1,5 +1,6 @@
 import yaml
 
+
 include: "rules/00_modules.smk"
 include: "rules/static_env.smk"
 include: "rules/functions.smk"
@@ -9,8 +10,10 @@ include: "rules/loading.smk"
 include: "rules/transforming.smk"
 include: "rules/packaging.smk"
 
+
 localrules:
     dump_config,
+
 
 rule run_all:
     input:
@@ -18,13 +21,12 @@ rule run_all:
         collect_base_images,
         collect_reference_container_build_targets,
 
+
 rule dump_config:
     output:
         "results/run_config.yaml",
     run:
-        runinfo = {'_timestamp': get_timestamp(), '_username': get_username()} 
+        runinfo = {"_timestamp": get_timestamp(), "_username": get_username()}
         runinfo.update(config)
-        with open ('results/run_config.yaml', 'w') as file:
+        with open("results/run_config.yaml", "w") as file:
             yaml.dump(runinfo, file)
-
-
