@@ -53,7 +53,7 @@ Additionally, the following binaries must be available in your `$PATH` besides t
 
 Tested on Ubuntu 20.04, installs AWS version:
 
-`aws-cli/1.18.69 Python/3.8.10 Linux/5.4.0-90-generic botocore/1.16.19`
+`aws-cli/1.22.34 Python/3.10.4 Linux/5.15.0-47-generic botocore/1.23.34`
 
 ### Utility: install gcloud SDK on Ubuntu
 
@@ -156,8 +156,8 @@ in the `workflow/` subfolder of your repository):
 ```python
 import pathlib
 
-refcon_module = pathlib.Path("ref-container/workflow/rules/ext_include/refcon_load.smk")
-refcon_repo_path = config.get("refcon_repo_path", None)
+refcon_module = pathlib.Path("ref-container/workflow/rules/commons/005_refcon.smk")
+refcon_repo_path = config.get("reference_container_store", None)
 if refcon_repo_path is None:
     refcon_repo_path = pathlib.Path(workflow.basedir).parent.parent
 else:
@@ -182,13 +182,13 @@ your-pipeline/
 In your Snakemake configuration, you need to set the folder name where the reference containers are stored...
 
 ```yaml
-reference_container_folder = PATH_TO_THE_CONTAINER_FOLDER
+reference_container_store: PATH_TO_THE_CONTAINER_FOLDER
 ```
 
 ...and list the containers to use:
 
 ```yaml
-reference_container_folder = PATH_TO_THE_CONTAINER_FOLDER
+reference_container_store: PATH_TO_THE_CONTAINER_FOLDER
 reference_container_names:
     - ref_container1
     - ref_container2
