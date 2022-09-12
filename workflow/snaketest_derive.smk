@@ -22,25 +22,26 @@ Test_data = [
     "input": "test/genome.fa",
     "output": "test/genome.dict",
     "shell": "samtools dict {input} > {output}",
-    "singularity": "https://depot.galaxyproject.org/singularity/samtools:1.6--hb116620_7",
-    "rule_name": "rule_test1"
+    "singularity": "https://depot.galaxyproject.org/singularity/samtools:1.15--h1170115_1",
+    "rule_name": "create_dict"
 },
 {
     "name": "genome.fa",
     "input": "test/genome.fa",
     "output": "test/genome.fa.fai",
-    "shell": "samtools faidx {input}",
-    "singularity": "https://depot.galaxyproject.org/singularity/samtools:1.6--hb116620_7",
-    "rule_name": "rule_test2",
+    "shell": "samtools faidx --fai-idx {output} {input}",
+    "singularity": "https://depot.galaxyproject.org/singularity/samtools:1.15--h1170115_1",
+    "rule_name": "create_faidx",
     } 
 ]
 
 for DT in Test_data:
+    print(DT)
     rule derive_test:
         name:
             f"derive_{DT['rule_name']}"
         message:
-            f"Deriving data file {DT['name']}"
+            f"Deriving data file {DT['output']} with CMD {DT['shell']}"
         input:
             DT["input"],
         output:
