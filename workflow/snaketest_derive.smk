@@ -9,11 +9,7 @@ rule get_test_file:
         "test/genome.fa"
     shell:
         """
-        curl -L https://github.com/snakemake/snakemake-tutorial-data/archive/v5.24.1.tar.gz -o snakemake-tutorial-data.tar.gz
-        tar --wildcards -xf snakemake-tutorial-data.tar.gz --strip 1 "*/data"
-        cp data/genome.fa {output}
-        rm -rf data/
-        rm snakemake-tutorial-data.tar.gz
+        wget -O {output} https://raw.githubusercontent.com/snakemake/snakemake-tutorial-data/master/data/genome.fa
         """
 
 Test_data = [
@@ -29,17 +25,18 @@ Test_data = [
     "name": "genome.fa",
     "input": "test/genome.fa",
     "output": "test/genome.fa.fai",
-    "shell": "samtools faidx --fai-idx {output} {input}",
+    "shell": "samtools faidx {input}",
     "singularity": "https://depot.galaxyproject.org/singularity/samtools:1.15--h1170115_1",
     "rule_name": "create_faidx",
-    } 
+}
 ]
 
 for DT in Test_data:
+    print("Building rule")
     print(DT)
-    rule derive_test:
+    rule:
         name:
-            f"derive_{DT['rule_name']}"
+            f"{DT['rule_name']}"
         message:
             f"Deriving data file {DT['output']} with CMD {DT['shell']}"
         input:
