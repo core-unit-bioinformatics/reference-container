@@ -1,3 +1,6 @@
+# Run me
+# snakemake --verbose -d wd/  -c 1 --use-singularity --keep-going --rerun-incomplete -s workflow/snaketest_derive.smk
+
 rule all:
     input: 
         "test/genome.fa",
@@ -14,7 +17,6 @@ rule get_test_file:
 
 Test_data = [
 {
-    "name": "genome.fa",
     "input": "test/genome.fa",
     "output": "test/genome.dict",
     "shell": "samtools dict {input} > {output}",
@@ -22,7 +24,6 @@ Test_data = [
     "rule_name": "create_dict"
 },
 {
-    "name": "genome.fa",
     "input": "test/genome.fa",
     "output": "test/genome.fa.fai",
     "shell": "samtools faidx {input}",
