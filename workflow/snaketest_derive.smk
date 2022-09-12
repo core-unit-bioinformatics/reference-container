@@ -1,8 +1,20 @@
 rule all:
     input: 
+        "test/genome.fa",
         "test/genome.dict",
         "test/genome.fa.fai",
 
+rule get_test_file:
+    output:
+        "test/genome.fa"
+    shell:
+        """
+        curl -L https://github.com/snakemake/snakemake-tutorial-data/archive/v5.24.1.tar.gz -o snakemake-tutorial-data.tar.gz
+        tar --wildcards -xf snakemake-tutorial-data.tar.gz --strip 1 "*/data"
+        cp data/genome.fa {output}
+        rm -rf data/
+        rm snakemake-tutorial-data.tar.gz
+        """
 
 Test_data = [
 {
