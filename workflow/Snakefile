@@ -9,6 +9,7 @@ include: "rules/utils.smk"
 include: "rules/loading.smk"
 include: "rules/transforming.smk"
 include: "rules/packaging.smk"
+include: "rules/data_transformation.smk"
 
 
 localrules:

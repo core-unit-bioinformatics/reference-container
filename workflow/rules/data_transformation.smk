@@ -12,19 +12,12 @@ if USE_DATA_TRANSFORMATION:
         raise KeyError(
             "The config option 'use_data_transformation' is set to True. "
             "Consequently, the option 'data_transformation_workflow' must be "
-            "set to an existing Snakefile on the file system containing the "
-            "Snakemake workflow that should be used."
+            "set to an existing Snakemake workflow that should be used."
         )
     else:
         DATA_TRANSFORMATION_WORKFLOW = pathlib.Path(DATA_TRANSFORMATION_WORKFLOW).resolve(strict=True)
     
-    from snakemake.utils import min_version
-    min_version("6.0")
-
-    module data_transformation_workflow:
-        snakefile:
-            DATA_TRANSFORMATION_WORKFLOW
-    use rule * from data_transformation_workflow as data_transformation_*
+    include: DATA_TRANSFORMATION_WORKFLOW
 
 else:
     pass
