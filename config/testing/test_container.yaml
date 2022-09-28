@@ -1,0 +1,20 @@
+
+metadata_test:
+  name: test
+  version: 0
+  author: Sven.Willger
+  contact: sven.willger@hhu.de
+  base_image: base_v0
+  labels:
+  - "test"
+  sources:
+  -
+    provider: ftp
+    prefix: ftp.ncbi.nlm.nih.gov/genomes/all/GCA/000/001/405/GCA_000001405.15_GRCh38/seqs_for_alignment_pipelines.ucsc_ids
+    files:
+    - 
+      - GCA_000001405.15_GRCh38_no_alt_plus_hs38d1_analysis_set.fasta.fai
+      - genome.fasta.fai
+      - hg38.fasta.fai
+      - rename: GCA_000001405.15_GRCh38_no_alt_plus_hs38d1_analysis_set.fna.fai
+
