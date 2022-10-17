@@ -1,0 +1,58 @@
+
+convert_fasta: True
+metadata_ncbi-mm11-GRCm39:
+  name: ncbi-mm11-GRCm39
+  version: 0
+  author: Sven.Willger
+  contact: sven.willger@hhu.de
+  base_image: base_v0
+  labels:
+  - "mus musculus"
+  - "mm11"
+  - "GRCm39"
+  - "reference genome"
+  - "no chr prefix"
+  - "GCA_000001635.9_GRCm39"
+  sources:
+  -
+    provider: ftp
+    prefix: ftp.ncbi.nlm.nih.gov/genomes/all/GCA/000/001/635/GCA_000001635.9_GRCm39
+    files:
+    -
+      - GCA_000001635.9_mm11-GRCm39.fasta
+      - genome.fasta
+      - mm11-GRCm39.fasta
+      - decompress: GCA_000001635.9_GRCm39_genomic.fna.gz
+    -
+      - GCA_000001635.9_mm11-GRCm39.assembly-report.txt
+      - mm11-GRCm39.assembly-report.txt
+      - rename: GCA_000001635.9_GRCm39_assembly_report.txt
+    -
+      - GCA_000001635.9_mm11-GRCm39.assembly-stats.txt
+      - mm11-GRCm39.assembly-stats.txt
+      - rename: GCA_000001635.9_GRCm39_assembly_stats.txt
+    -
+      - GCA_000001635.9_mm11-GRCm39.primary-chr2acc.tsv
+      - mm11-GRCm39.primary-chr2acc.tsv
+      - rename: GCA_000001635.9_GRCm39_assembly_structure/Primary_Assembly/assembled_chromosomes/chr2acc
+    -
+      - GCA_000001635.9_mm11-GRCm39.mito-chr2acc.tsv
+      - mm11-GRCm39.mito-chr2acc.tsv
+      - rename: GCA_000001635.9_GRCm39_assembly_structure/non-nuclear/assembled_chromosomes/chr2acc
+  -
+    provider: local
+    files:
+    -
+      - GCA_000001635.9_mm11-GRCm39_original.fasta
+      - genome_original.fasta
+      - mm11-GRCm39_original.fasta
+    -
+      - GCA_000001635.9_mm11-GRCm39.fasta.fai
+      - genome.fasta.fai
+      - mm11-GRCm39.fasta.fai
+    -
+      - GCA_000001635.9_mm11-GRCm39.fasta.dict
+      - genome.dict
+      - mm11-GRCm39.dict
+    - 
+      - GCA_000001635.9_mm11-GRCm39_conversion_table.tsv

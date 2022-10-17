@@ -1,0 +1,58 @@
+
+convert_fasta: True
+metadata_ncbi-mm10-GRCm38:
+  name: ncbi-mm10-GRCm38
+  version: 0
+  author: Sven.Willger
+  contact: sven.willger@hhu.de
+  base_image: base_v0
+  labels:
+  - "mus musculus"
+  - "mm10"
+  - "GRCm38"
+  - "reference genome"
+  - "no chr prefix"
+  - "GCA_000001635.8_GRCm38.p6"
+  sources:
+  -
+    provider: ftp
+    prefix: ftp.ncbi.nlm.nih.gov/genomes/all/GCA/000/001/635/GCA_000001635.8_GRCm38.p6
+    files:
+    -
+      - GCA_000001635.8_mm10-GRCm38.fasta
+      - genome.fasta
+      - mm10-GRCm38.fasta
+      - decompress: GCA_000001635.8_GRCm38.p6_genomic.fna.gz
+    -
+      - GCA_000001635.8_mm10-GRCm38.assembly-report.txt
+      - mm10-GRCm38.assembly-report.txt
+      - rename: GCA_000001635.8_GRCm38.p6_assembly_report.txt
+    -
+      - GCA_000001635.8_mm10-GRCm38.assembly-stats.txt
+      - mm10-GRCm38.assembly-stats.txt
+      - rename: GCA_000001635.8_GRCm38.p6_assembly_stats.txt
+    -
+      - GCA_000001635.8_mm10-GRCm38.primary-chr2acc.tsv
+      - mm10-GRCm38.primary-chr2acc.tsv
+      - rename: GCA_000001635.8_GRCm38.p6_assembly_structure/Primary_Assembly/assembled_chromosomes/chr2acc
+    -
+      - GCA_000001635.8_mm10-GRCm38.mito-chr2acc.tsv
+      - mm10-GRCm38.mito-chr2acc.tsv
+      - rename: GCA_000001635.8_GRCm38.p6_assembly_structure/non-nuclear/assembled_chromosomes/chr2acc
+  -
+    provider: local
+    files:
+    -
+      - GCA_000001635.8_mm10-GRCm38_original.fasta
+      - genome_original.fasta
+      - mm10-GRCm38_original.fasta
+    -
+      - GCA_000001635.8_mm10-GRCm38.fasta.fai
+      - genome.fasta.fai
+      - mm10-GRCm38.fasta.fai
+    -
+      - GCA_000001635.8_mm10-GRCm38.fasta.dict
+      - genome.dict
+      - mm10-GRCm38.dict
+    - 
+      - GCA_000001635.8_mm10-GRCm38_conversion_table.tsv
