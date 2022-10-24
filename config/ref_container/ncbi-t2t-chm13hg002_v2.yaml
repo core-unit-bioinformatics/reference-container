@@ -1,0 +1,61 @@
+
+convert_fasta: True
+metadata_ncbi-t2t-chm13hg002:
+  name: ncbi-t2t-chm13hg002
+  version: 2
+  author: Peter.Ebert
+  contact: peter.ebert@hhu.de
+  base_image: base_v0
+  labels:
+  - "homo sapiens"
+  - "chm13"
+  - "reference genome"
+  - "T2Tv2.0"
+  - "chm13_1-22XMT"
+  - "hg002_XY"
+  - "no chr prefix"
+  - "GCA_009914755.4"
+  - "GCA_020881995.2_ASM2088199v2"
+  sources:
+  -
+    provider: ftp
+    prefix: ftp.ncbi.nlm.nih.gov/genomes/all/GCA/009/914/755/GCA_009914755.4_T2T-CHM13v2.0
+    files:
+    -
+      - GCA_009914755.4_T2T-CHM13v2.0.fasta
+      - genome.fasta
+      - t2tv20_chm13.fasta
+      - decompress: GCA_009914755.4_T2T-CHM13v2.0_genomic.fna.gz
+    -
+      - GCA_009914755.4_T2T-CHM13v2.0.assembly-report.txt
+      - t2tv20_chm13.assembly-report.txt
+      - rename: GCA_009914755.4_T2T-CHM13v2.0_assembly_report.txt
+    -
+      - GCA_009914755.4_T2T-CHM13v2.0.assembly-stats.txt
+      - t2tv20_chm13.assembly-stats.txt
+      - rename: GCA_009914755.4_T2T-CHM13v2.0_assembly_stats.txt
+    -
+      - GCA_009914755.4_T2T-CHM13v2.0.primary-chr2acc.tsv
+      - t2tv20_chm13.primary-chr2acc.tsv
+      - rename: GCA_009914755.4_T2T-CHM13v2.0_assembly_structure/Primary_Assembly/assembled_chromosomes/chr2acc
+    -
+      - GCA_009914755.4_T2T-CHM13v2.0.mito-chr2acc.tsv
+      - t2tv20_chm13.mito-chr2acc.tsv
+      - rename: GCA_009914755.4_T2T-CHM13v2.0_assembly_structure/non-nuclear/assembled_chromosomes/chr2acc
+  -
+    provider: local
+    files:
+    -
+      - GCA_009914755.4_T2T-CHM13v2.0_original.fasta
+      - genome_original.fasta
+      - t2tv20_chm13_original.fasta
+    -
+      - GCA_009914755.4_T2T-CHM13v2.0.fasta.fai
+      - genome.fasta.fai
+      - t2tv20_chm13.fasta.fai
+    -
+      - GCA_009914755.4_T2T-CHM13v2.0.fasta.dict
+      - genome.dict
+      - t2tv20_chm13.dict
+    - 
+      - GCA_009914755.4_T2T-CHM13v2.0_conversion_table.tsv
