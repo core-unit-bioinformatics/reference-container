@@ -1,0 +1,50 @@
+
+metadata_ncbi-hg38-giab:
+  name: ncbi-hg38-giab
+  version: 0
+  author: Peter.Ebert
+  contact: peter.ebert@hhu.de
+  base_image: base_v0
+  labels:
+  - "homo sapiens"
+  - "hg38"
+  - "reference genome"
+  - "masked"
+  - "no alt"
+  - "chr prefix"
+  - "unplaced sequence"
+  - "unlocalized sequence"
+  - "chrEBV"
+  - "GCA_000001405.15"
+  - "doi.org/10.1038/s41587-021-01158-1"
+  - "doi.org/10.1186/s13059-023-02863-7"
+  sources:
+  -
+    provider: ftp
+    prefix: ftp-trace.ncbi.nlm.nih.gov/ReferenceSamples/giab/release/references/GRCh38
+    files:
+    -
+      - GRCh38_masked_v2_decoy_excludes_GPRIN2_DUSP22_FANCD2.fasta
+      - genome.fasta
+      - hg38.fasta
+      - decompress: GRCh38_masked_v2_decoy_excludes_GPRIN2_DUSP22_FANCD2.fasta.gz
+    -
+      - GRCh38_masked_v2_decoy_excludes_GPRIN2_DUSP22_FANCD2.fasta.fai
+      - genome.fasta.fai
+      - hg38.fasta.fai
+      - derive:
+          input: GRCh38_masked_v2_decoy_excludes_GPRIN2_DUSP22_FANCD2.fasta
+          singularity: https://depot.galaxyproject.org/singularity/samtools:1.6--hb116620_7
+          shell: samtools faidx {input}
+    -
+      - GRCh38_masked_v2_decoy_excludes_GPRIN2_DUSP22_FANCD2.dict
+      - genome.dict
+      - hg38.dict
+      - derive:
+          input: GRCh38_masked_v2_decoy_excludes_GPRIN2_DUSP22_FANCD2.fasta
+          singularity: https://depot.galaxyproject.org/singularity/samtools:1.6--hb116620_7
+          shell: samtools dict {input} > {output}
+
+    -
+      - README_GIAB_Mapping_References.md.txt
+      - giab_readme.txt
